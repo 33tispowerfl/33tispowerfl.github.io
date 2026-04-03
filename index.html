@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiana — Cornell University</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1612;
+    --paper: #f6f1eb;
+    --paper-warm: #ede5db;
+    --accent: #8b2500;
+    --accent-light: #c4583a;
+    --muted: #7a7067;
+    --rule: #c9bfb3;
+    --highlight: #fdf5e6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--paper);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(246, 241, 235, 0.85);
+    border-bottom: 1px solid var(--rule);
+  }
+  nav .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0.9rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  nav .logo span { color: var(--accent); }
+  nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+  }
+  nav a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 10rem 2rem 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    animation: fadeUp 1s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-text .overline {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .hero-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-text .subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  .hero-text p {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+  .hero-links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.6rem 1.4rem;
+    border-radius: 3px;
+    transition: all 0.3s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--paper);
+  }
+  .btn-primary:hover { background: var(--accent-light); }
+  .btn-secondary {
+    border: 1.5px solid var(--rule);
+    color: var(--ink);
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+  }
+  .photo-frame {
+    width: 340px;
+    height: 420px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid var(--rule);
+    pointer-events: none;
+  }
+  .photo-placeholder {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.2;
+    user-select: none;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.2rem;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 0.8rem;
+  }
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  /* ── RESEARCH ── */
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .research-card {
+    padding: 2rem;
+    background: var(--highlight);
+    border: 1px solid var(--rule);
+    transition: all 0.35s;
+    position: relative;
+  }
+  .research-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .research-card:hover::after { width: 100%; }
+  .research-card:hover { border-color: var(--accent-light); }
+  .research-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  .research-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .research-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(139, 37, 0, 0.07);
+    padding: 0.2rem 0.6rem;
+    margin-top: 1rem;
+    border-radius: 2px;
+  }
+
+  /* ── PUBLICATIONS ── */
+  .pub-list { list-style: none; }
+  .pub-item {
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: background 0.3s;
+  }
+  .pub-item:hover { background: var(--highlight); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+  .pub-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    padding-top: 0.25rem;
+  }
+  .pub-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+  .pub-authors {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+  }
+  .pub-venue {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+  .pub-links {
+    margin-top: 0.6rem;
+    display: flex;
+    gap: 0.8rem;
+  }
+  .pub-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-decoration: none;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .pub-links a:hover { border-bottom-color: var(--accent); }
+
+  /* ── TEACHING ── */
+  .teaching-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .teaching-card {
+    padding: 1.5rem 2rem;
+    border-left: 3px solid var(--accent);
+    background: var(--highlight);
+  }
+  .teaching-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .teaching-card .role {
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .teaching-card p {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    text-align: center;
+    padding: 5rem 2rem 6rem;
+  }
+  .contact-section .section-header {
+    justify-content: center;
+  }
+  .contact-info {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 2;
+  }
+  .contact-info a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  .contact-info a:hover { border-bottom-color: var(--accent); }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .contact-link:hover { color: var(--accent); }
+  .contact-link svg { width: 18px; height: 18px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--rule);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  .divider hr {
+    border: none;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding-top: 7rem;
+      gap: 2.5rem;
+    }
+    .hero-text h1 { font-size: 2.8rem; }
+    .hero-visual { order: -1; }
+    .photo-frame { width: 240px; height: 300px; }
+    .research-grid, .teaching-grid {
+      grid-template-columns: 1fr;
+    }
+    .pub-item { grid-template-columns: 1fr; gap: 0.3rem; }
+    nav ul { gap: 1rem; }
+    nav a { font-size: 0.72rem; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">T<span>.</span></a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#teaching">Teaching</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <div class="overline">PhD Candidate · Cornell University</div>
+    <h1>Tiana</h1>
+    <div class="subtitle">
+      Information &amp; Decision Sciences Lab
+    </div>
+    <p>
+      I study robust decision-making and optimal control for autonomous systems,
+      combining reinforcement learning, game theory, and multi-agent regret
+      analysis under the guidance of Prof.&nbsp;Andreas&nbsp;A.&nbsp;Malikopoulos.
+    </p>
+    <div class="hero-links">
+      <a href="#publications" class="btn-primary">Publications</a>
+      <a href="mailto:your-email@cornell.edu" class="btn-secondary">Get in Touch</a>
+      <a href="#" class="btn-secondary">CV ↓</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <!-- Replace with <img src="your-photo.jpg" alt="Tiana" style="width:100%;height:100%;object-fit:cover;"> -->
+      <div class="photo-placeholder">T</div>
+    </div>
+  </div>
+</header>
+
+<div class="divider"><hr></div>
+
+<!-- RESEARCH -->
+<section id="research" class="reveal">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Research</h2>
+  </div>
+  <div class="research-grid">
+    <div class="research-card">
+      <h3>Regret Minimization in Zero-Sum Games</h3>
+      <p>
+        Developing certified certainty-equivalent algorithms with shrinkage-based
+        surrogate model selection for zero-sum linear quadratic games with unknown
+        dynamics, achieving Õ(√T) regret bounds.
+      </p>
+      <span class="research-tag">Game Theory · Online Learning</span>
+    </div>
+    <div class="research-card">
+      <h3>Vision-Language Enhanced Autonomous Navigation</h3>
+      <p>
+        VisioPath — integrating vision-language models with model predictive control
+        for safe autonomous navigation in mixed-traffic environments.
+      </p>
+      <span class="research-tag">VLM · MPC · Autonomy</span>
+    </div>
+    <div class="research-card">
+      <h3>Certified Semantic-Aware Control</h3>
+      <p>
+        Tube MPC frameworks integrating semantic descriptors with conformal prediction
+        for provably safe autonomous vehicle operation.
+      </p>
+      <span class="research-tag">Conformal Prediction · Safety</span>
+    </div>
+    <div class="research-card">
+      <h3>Multi-Vehicle Coordination</h3>
+      <p>
+        Coordinating mixed teams of ground and aerial vehicles for complex
+        search-and-rescue missions using multi-agent decision-making frameworks.
+      </p>
+      <span class="research-tag">Multi-Agent Systems</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="reveal">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Selected Publications</h2>
+  </div>
+  <ul class="pub-list">
+    <li class="pub-item">
+      <div class="pub-year">2026</div>
+      <div class="pub-content">
+        <h3>Regret Minimization in Zero-Sum Linear Quadratic Games with Unknown Dynamics</h3>
+        <div class="pub-authors">Tiana, W. Co-author, A. A. Malikopoulos</div>
+        <div class="pub-venue">IEEE Conference on Decision and Control (CDC), submitted</div>
+        <div class="pub-links">
+          <a href="#">arXiv</a>
+          <a href="#">Code</a>
+        </div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2025</div>
+      <div class="pub-content">
+        <h3>VisioPath: Vision-Language Enhanced Model Predictive Control for Safe Autonomous Navigation in Mixed Traffic</h3>
+        <div class="pub-authors">Tiana et al.</div>
+        <div class="pub-venue">IEEE Open Journal of Control Systems</div>
+        <div class="pub-links">
+          <a href="#">Paper</a>
+          <a href="#">Patent</a>
+        </div>
+      </div>
+    </li>
+    <li class="pub-item">
+      <div class="pub-year">2025</div>
+      <div class="pub-content">
+        <h3>CorrA: LLM-Based Dynamic Obstacle Avoidance for Autonomous Vehicles</h3>
+        <div class="pub-authors">Tiana et al.</div>
+        <div class="pub-venue">Under revision</div>
+        <div class="pub-links">
+          <a href="#">Preprint</a>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- TEACHING & SERVICE -->
+<section id="teaching" class="reveal">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Teaching &amp; Service</h2>
+  </div>
+  <div class="teaching-grid">
+    <div class="teaching-card">
+      <h3>Transportation Systems Analysis</h3>
+      <div class="role">Teaching Assistant</div>
+      <p>Assisted with lecture preparation including emerging technologies and transportation demand modeling. Advised by Prof. Peeta.</p>
+    </div>
+    <div class="teaching-card">
+      <h3>IDS-DDLC Seminar Series</h3>
+      <div class="role">Seminar Coordinator</div>
+      <p>Organizing the Data-Driven Learning and Control seminar series — managing speaker invitations, logistics, recordings, and outreach.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><hr></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section reveal">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Contact</h2>
+  </div>
+  <div class="contact-info">
+    <p>I'm always open to collaborations and conversations about autonomous systems,<br>game theory, and multi-agent learning.</p>
+  </div>
+  <div class="contact-row">
+    <a class="contact-link" href="mailto:your-email@cornell.edu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email
+    </a>
+    <a class="contact-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Google Scholar
+    </a>
+    <a class="contact-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Cornell University · Information &amp; Decision Sciences Lab · Ithaca, NY</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
