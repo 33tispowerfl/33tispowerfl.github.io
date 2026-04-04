@@ -266,57 +266,118 @@
   }
 
   /* ── PUBLICATIONS ── */
-  .pub-list { list-style: none; }
+  .pub-list { list-style: none; display: flex; flex-direction: column; gap: 1.8rem; }
   .pub-item {
-    padding: 1.8rem 0;
-    border-bottom: 1px solid var(--rule);
     display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 1.5rem;
-    align-items: start;
-    transition: background 0.3s;
+    grid-template-columns: 260px 1fr;
+    gap: 0;
+    align-items: stretch;
+    background: var(--highlight);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, border-color 0.3s;
   }
-  .pub-item:hover { background: var(--highlight); margin: 0 -1rem; padding-left: 1rem; padding-right: 1rem; }
+  .pub-item:hover {
+    border-color: var(--accent-light);
+    box-shadow: 0 4px 20px rgba(139,37,0,0.08);
+  }
+  .pub-figure {
+    width: 260px;
+    height: 180px;
+    overflow: hidden;
+    background: var(--paper-warm);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .pub-figure img,
+  .pub-figure video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pub-figure-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--muted);
+  }
+  .pub-figure-placeholder span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .pub-badge {
+    position: absolute;
+    top: 8px; left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: rgba(26,22,18,0.65);
+    padding: 0.18rem 0.5rem;
+    border-radius: 2px;
+    backdrop-filter: blur(4px);
+  }
+  .pub-body {
+    padding: 1.4rem 1.5rem;
+  }
   .pub-year {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     color: var(--accent);
-    padding-top: 0.25rem;
+    margin-bottom: 0.4rem;
+    display: block;
   }
-  .pub-content h3 {
+  .pub-body h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     font-weight: 600;
     line-height: 1.35;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.45rem;
   }
   .pub-authors {
-    font-size: 0.85rem;
+    font-size: 0.84rem;
     color: var(--muted);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
   }
   .pub-venue {
     font-size: 0.82rem;
     font-style: italic;
     color: var(--muted);
+    margin-bottom: 0.8rem;
   }
   .pub-links {
-    margin-top: 0.6rem;
     display: flex;
-    gap: 0.8rem;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
   .pub-links a {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.67rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
+    letter-spacing: 0.07em;
+    color: var(--ink);
     text-decoration: none;
-    padding: 0.2rem 0;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.3s;
+    padding: 0.28rem 0.7rem;
+    border: 1.5px solid var(--rule);
+    border-radius: 2px;
+    transition: all 0.25s;
   }
-  .pub-links a:hover { border-bottom-color: var(--accent); }
+  .pub-links a:hover { border-color: var(--accent); color: var(--accent); }
+  @media (max-width: 768px) {
+    .pub-item { grid-template-columns: 1fr; }
+    .pub-figure { width: 100%; height: 180px; }
+    .pub-body { padding: 1rem; }
+  }
 
   /* ── TEACHING ── */
   .teaching-grid {
@@ -540,41 +601,69 @@
         <h2 class="section-title">Selected Publications</h2>
     </div>
     <ul class="pub-list">
+
+        <!-- Paper 1: LQG Regret -->
         <li class="pub-item">
-        <div class="pub-year">2026</div>
-        <div class="pub-content">
+          <div class="pub-figure">
+            <!-- Add image: <img src="figures/lqg-pipeline.png" alt="LQG pipeline"> -->
+            <div class="pub-figure-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--rule)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span>figure coming soon</span>
+            </div>
+            <span class="pub-badge">CDC 2026</span>
+          </div>
+          <div class="pub-body">
+            <span class="pub-year">2026</span>
             <h3>Regret Minimization in Zero-Sum Linear Quadratic Games with Unknown Dynamics</h3>
             <div class="pub-authors">Wang, S., Sun, W., Malikopoulos, A. A.</div>
             <div class="pub-venue">IEEE Conference on Decision and Control (CDC), submitted</div>
             <div class="pub-links">
-            <a href="#">arXiv</a>
-            <a href="#">Code</a>
+              <a href="#">arXiv</a>
+              <a href="#">Code</a>
             </div>
-        </div>
+          </div>
         </li>
+
+        <!-- Paper 2: VisioPath -->
         <li class="pub-item">
-        <div class="pub-year">2025</div>
-        <div class="pub-content">
+          <div class="pub-figure">
+            <!-- Add image: <img src="figures/visiopath-pipeline.png" alt="VisioPath pipeline"> -->
+            <div class="pub-figure-placeholder">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--rule)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+              <span>figure coming soon</span>
+            </div>
+            <span class="pub-badge">IEEE OJCS</span>
+          </div>
+          <div class="pub-body">
+            <span class="pub-year">2025</span>
             <h3>VisioPath: Vision-Language Enhanced Model Predictive Control for Safe Autonomous Navigation in Mixed Traffic</h3>
-            <div class="pub-authors"><strong>Wang, S.</strong>, Typaldos, P., Li., C., Malikopoulos A. A. </div>
+            <div class="pub-authors"><strong>Wang, S.</strong>, Typaldos, P., Li., C., Malikopoulos A. A.</div>
             <div class="pub-venue">IEEE Open Journal of Control Systems</div>
             <div class="pub-links">
-            <a href="https://ieeexplore.ieee.org/document/11199901?denied=" target="_blank" rel="noopener noreferrer">Paper</a>
-            <!-- <a href="#">Patent</a> -->
+              <a href="https://ieeexplore.ieee.org/document/11199901?denied=" target="_blank" rel="noopener noreferrer">Paper</a>
             </div>
-        </div>
+          </div>
         </li>
+
+        <!-- Paper 3: CorrA — with demo video -->
         <li class="pub-item">
-        <div class="pub-year">2025</div>
-        <div class="pub-content">
+          <div class="pub-figure">
+            <video autoplay muted loop playsinline>
+              <source src="iros_short_video_2x.mov" type="video/mp4">
+            </video>
+            <span class="pub-badge">Under Revision</span>
+          </div>
+          <div class="pub-body">
+            <span class="pub-year">2025</span>
             <h3>CorrA: LLM-Based Dynamic Obstacle Avoidance for Autonomous Vehicles</h3>
             <div class="pub-authors"><strong>Wang, S.</strong>, Typaldos, P., Malikopoulos A. A.</div>
             <div class="pub-venue">Under revision</div>
             <div class="pub-links">
-            <a href="https://arxiv.org/pdf/2503.02076" target="_blank" rel="noopener noreferrer">Preprint</a>
+              <a href="https://arxiv.org/pdf/2503.02076" target="_blank" rel="noopener noreferrer">Preprint</a>
             </div>
-        </div>
+          </div>
         </li>
+
     </ul>
 </section>
 
