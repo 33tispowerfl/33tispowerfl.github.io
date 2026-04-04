@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shanting Wang — Cornell University</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #111111;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: #2563eb; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid #e5e7eb;
+    backdrop-filter: blur(8px);
+  }
+  nav .nav-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0.85rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  nav .logo {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+  }
+  nav ul { display: flex; list-style: none; gap: 1.8rem; }
+  nav a {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: #111; text-decoration: none; }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 1.8rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid #111;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 4rem;
+    align-items: start;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 0.3rem;
+  }
+  .hero .affiliation {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1.4rem;
+  }
+  .hero p {
+    font-size: 0.93rem;
+    color: #333;
+    line-height: 1.75;
+    margin-bottom: 0.9rem;
+    text-align: justify;
+  }
+  .hero-links {
+    margin-top: 1.4rem;
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .hero-links a {
+    font-size: 0.84rem;
+    font-weight: 500;
+    padding: 0.45rem 1.1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: #111;
+    color: #fff;
+  }
+  .btn-primary:hover { background: #333; }
+  .btn-secondary {
+    border: 1.5px solid #d1d5db;
+    color: #333;
+  }
+  .btn-secondary:hover { border-color: #111; color: #111; }
+
+  .hero-photo {
+    width: 220px;
+    height: 270px;
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+    flex-shrink: 0;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ── RESEARCH ── */
+  .research-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+  .research-card {
+    padding: 1.4rem 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .research-card:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .research-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #111;
+  }
+  .research-card p {
+    font-size: 0.86rem;
+    color: #555;
+    line-height: 1.65;
+    text-align: justify;
+  }
+  .research-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    color: #2563eb;
+    background: #eff6ff;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-top: 0.8rem;
+    font-weight: 500;
+  }
+
+  /* ── PUBLICATIONS ── */
+  .pub-list { list-style: none; display: flex; flex-direction: column; gap: 1.4rem; }
+  .pub-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .pub-item:hover {
+    border-color: #9ca3af;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+  .pub-figure {
+    width: 220px;
+    height: 160px;
+    overflow: hidden;
+    background: #f9fafb;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .pub-figure img,
+  .pub-figure video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pub-badge {
+    position: absolute;
+    top: 7px; left: 7px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(17,17,17,0.7);
+    padding: 0.18rem 0.5rem;
+    border-radius: 3px;
+  }
+  .pub-body {
+    padding: 1.2rem 1.4rem;
+  }
+  .pub-year {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #2563eb;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  .pub-body h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+    color: #111;
+  }
+  .pub-authors {
+    font-size: 0.83rem;
+    color: #555;
+    margin-bottom: 0.2rem;
+  }
+  .pub-venue {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #777;
+    margin-bottom: 0.7rem;
+  }
+  .pub-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .pub-links a {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 0.22rem 0.65rem;
+    border: 1.5px solid #bfdbfe;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .pub-links a:hover { background: #eff6ff; border-color: #2563eb; text-decoration: none; }
+
+  /* ── SERVICE ── */
+  .service-card {
+    padding: 1.2rem 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-left: 3px solid #2563eb;
+    border-radius: 0 6px 6px 0;
+    max-width: 480px;
+  }
+  .service-card h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .service-card .role {
+    font-size: 0.82rem;
+    color: #2563eb;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .service-card p {
+    font-size: 0.85rem;
+    color: #555;
+    text-align: justify;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { text-align: center; }
+  .contact-section .section-title { display: inline-block; }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: #2563eb; text-decoration: none; }
+  .contact-link svg { width: 17px; height: 17px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid #e5e7eb;
+    padding: 1.8rem 2rem;
+    text-align: center;
+    font-size: 0.78rem;
+    color: #9ca3af;
+  }
+
+  hr.divider {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: none;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding-top: 6rem; gap: 2rem; }
+    .hero-photo { width: 160px; height: 200px; }
+    .research-grid { grid-template-columns: 1fr; }
+    .pub-item { grid-template-columns: 1fr; }
+    .pub-figure { width: 100%; height: 160px; }
+    .pub-body { padding: 1rem; }
+    nav ul { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Shanting Wang</a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="#service">Service</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-text">
+    <h1>Shanting Wang</h1>
+    <div class="affiliation">PhD Candidate · Systems Engineering · Cornell University</div>
+    <p style="text-align: justify;">
+      Hi there! I'm a Ph.D. student in Systems Engineering at Cornell University, where I am fortunate to be advised by <a href="https://ids-lab.net/people/" target="_blank" rel="noopener noreferrer">Andreas A. Malikopoulos</a> in the Information and Decision Science (IDS) Lab. My work spans control theory, learning, game theory, and AI integration for autonomous systems, with hands-on experimental validation in the IDS3C Scaled Smart City. My research focuses on making autonomous systems safe and adaptive under uncertainty, bridging learning-based methods with formal control guarantees.
+    </p>
+    <p style="text-align: justify;">
+      <strong>Research Interests:</strong> Adaptive Control under Uncertainty, Multi-Agent Coordination, Vision-Language Models for Autonomy, and Zero-Sum Game Theory.
+    </p>
+    <div class="hero-links">
+      <a href="#publications" class="btn-primary">Publications</a>
+      <a href="mailto:sw997@cornell.edu" class="btn-secondary">Get in Touch</a>
+      <a href="#" class="btn-secondary">CV ↓</a>
+    </div>
+  </div>
+  <div>
+    <div class="hero-photo">
+      <img src="wang.jpeg" alt="Shanting Wang">
+    </div>
+  </div>
+</header>
+
+<hr class="divider">
+
+<!-- RESEARCH -->
+<section id="research" class="reveal">
+  <h2 class="section-title">Research</h2>
+  <div class="research-grid">
+    <div class="research-card">
+      <h3>Regret Minimization in Zero-Sum Games</h3>
+      <p>Developing certified certainty-equivalent algorithms with shrinkage-based surrogate model selection for zero-sum linear quadratic games with unknown dynamics, achieving \( \tilde{O}(\sqrt{T}) \) regret bounds.</p>
+      <span class="research-tag">Game Theory · Online Learning</span>
+    </div>
+    <div class="research-card">
+      <h3>Vision-Language Enhanced Autonomous Navigation</h3>
+      <p>VisioPath — integrating vision-language models with model predictive control for safe autonomous navigation in mixed-traffic environments.</p>
+      <span class="research-tag">VLM · MPC · Autonomy</span>
+    </div>
+    <div class="research-card">
+      <h3>Multi-Vehicle Coordination</h3>
+      <p>Coordinating mixed teams of ground and aerial vehicles for complex search-and-rescue missions using multi-agent decision-making frameworks.</p>
+      <span class="research-tag">Multi-Agent Systems</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- PUBLICATIONS -->
+<section id="publications" class="reveal">
+  <h2 class="section-title">Selected Publications</h2>
+  <ul class="pub-list">
+
+    <!-- Paper 1: LQG Regret -->
+    <li class="pub-item">
+      <div class="pub-figure">
+        <img src="figures/regret_image.png" alt="Regret minimization pipeline">
+        <span class="pub-badge">CDC 2026</span>
+      </div>
+      <div class="pub-body">
+        <span class="pub-year">2026</span>
+        <h3>Regret Minimization in Zero-Sum Linear Quadratic Games with Unknown Dynamics</h3>
+        <div class="pub-authors"><strong>Wang, S.</strong>, Sun, W., Malikopoulos, A. A.</div>
+        <div class="pub-venue">IEEE Conference on Decision and Control (CDC), submitted</div>
+        <div class="pub-links">
+          <a href="#">arXiv</a>
+          <a href="#">Code</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Paper 2: VisioPath -->
+    <li class="pub-item">
+      <div class="pub-figure">
+        <img src="figures/visio_path.png" alt="VisioPath pipeline">
+        <span class="pub-badge">IEEE OJCS</span>
+      </div>
+      <div class="pub-body">
+        <span class="pub-year">2025</span>
+        <h3>VisioPath: Vision-Language Enhanced Model Predictive Control for Safe Autonomous Navigation in Mixed Traffic</h3>
+        <div class="pub-authors"><strong>Wang, S.</strong>, Typaldos, P., Li, C., Malikopoulos, A. A.</div>
+        <div class="pub-venue">IEEE Open Journal of Control Systems</div>
+        <div class="pub-links">
+          <a href="https://ieeexplore.ieee.org/document/11199901?denied=" target="_blank" rel="noopener noreferrer">Paper</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Paper 3: CorrA -->
+    <li class="pub-item">
+      <div class="pub-figure">
+        <video autoplay muted loop playsinline>
+          <source src="iros_short_video_2x.mov" type="video/mp4">
+        </video>
+        <span class="pub-badge">Under Revision</span>
+      </div>
+      <div class="pub-body">
+        <span class="pub-year">2025</span>
+        <h3>CorrA: LLM-Based Dynamic Obstacle Avoidance for Autonomous Vehicles</h3>
+        <div class="pub-authors"><strong>Wang, S.</strong>, Typaldos, P., Malikopoulos, A. A.</div>
+        <div class="pub-venue">Under revision</div>
+        <div class="pub-links">
+          <a href="https://arxiv.org/pdf/2503.02076" target="_blank" rel="noopener noreferrer">Preprint</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Paper 4: Mobility Equity -->
+    <li class="pub-item">
+      <div class="pub-figure">
+        <img src="figures/mobility_equity.png" alt="Mobility equity normalized beta Boston">
+        <span class="pub-badge">IEEE T-ITS 2025</span>
+      </div>
+      <div class="pub-body">
+        <span class="pub-year">2025</span>
+        <h3>On Mobility Equity and the Promise of Emerging Transportation Systems</h3>
+        <div class="pub-authors">Bang, H., Dave, A., Tzortzoglou, F., <strong>Wang, S.</strong>, Malikopoulos, A. A.</div>
+        <div class="pub-venue">IEEE Transactions on Intelligent Transportation Systems (2025)</div>
+        <div class="pub-links">
+          <a href="https://ieeexplore.ieee.org/abstract/document/10932667" target="_blank" rel="noopener noreferrer">Paper</a>
+        </div>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<hr class="divider">
+
+<!-- SERVICE -->
+<section id="service" class="reveal">
+  <h2 class="section-title">Service</h2>
+  <div class="service-card">
+    <h3>IDS-DDLC Seminar Series</h3>
+    <div class="role">Seminar Coordinator</div>
+    <p>Organizing the Data-Driven Learning and Control seminar series — managing speaker invitations, logistics, recordings, and outreach.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section reveal">
+  <h2 class="section-title">Contact</h2>
+  <p style="font-size:0.9rem;color:#555;margin-top:0.5rem;">I'm always open to collaborations and conversations about autonomous systems, game theory, and multi-agent learning.</p>
+  <div class="contact-row">
+    <a class="contact-link" href="mailto:sw997@cornell.edu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      Email
+    </a>
+    <a class="contact-link" href="https://scholar.google.com/citations?user=H-cyUVwAAAAJ&hl=en&oi=ao" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Google Scholar
+    </a>
+    <a class="contact-link" href="https://www.linkedin.com/in/shanting-wang-1aaba61a4/" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a class="contact-link" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Cornell University · Information &amp; Decision Sciences Lab · Ithaca, NY
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
